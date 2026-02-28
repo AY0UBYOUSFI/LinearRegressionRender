@@ -1,10 +1,11 @@
-# app.py
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import numpy as np
 
 app = Flask(__name__)
+CORS(app)    
 
-# نموذج Linear Regression بسيط: y = 2x + 3
+
 def predict(x):
     return 2 * x + 3
 
@@ -15,5 +16,6 @@ def predict_route():
     y_pred = predict(x)
     return jsonify({'y_pred': y_pred.tolist()})
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+@app.route('/')
+def home():
+    return "Linear Regression API is running! Use POST /predict."
